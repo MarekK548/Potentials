@@ -1,7 +1,7 @@
 ﻿// Potentials.cpp : Defines the entry point for the application.
 //
 
-#include "Potentials.h"
+#include <iostream>
 
 using namespace std;
 
