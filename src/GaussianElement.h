@@ -4,11 +4,12 @@
 class GaussianElement
 {
 public:
-	GaussianElement(const double A_0, const std::vector<double> spatial_0, const double sigma, const double t_0);
+	inline GaussianElement(const double A_0, const std::vector<double> spatial_0, const double sigma, const double t_0);
 	inline double getValue(const std::vector<double> spatial, const double t);
+	inline std::vector<double> getDerivative(const std::vector<double> spatial, const double t);
 
 private:
-	inline double exponential_func(double x, double y, double sigma);
+	inline double gaussian_exp_func(double x, double y, double sigma);
 
 
 private:
@@ -23,13 +24,28 @@ inline double GaussianElement::getValue(const std::vector<double> spatial, const
 	double value = A_0;
 	for (size_t i = 0; i < spatial.size(); i++)
 	{
-		value *= exponential_func(spatial[i], spatial_0[i], sigma);
+		value *= gaussian_exp_func(spatial[i], spatial_0[i], sigma);
 	}
-	value *= exponential_func(t, t_0, sigma);
+	value *= gaussian_exp_func(t, t_0, sigma);
 	return value;
 }
 
-inline double GaussianElement::exponential_func(double x, double x_0, double sigma)
+inline std::vector<double> GaussianElement::getDerivative(const std::vector<double> spatial, const double t)
+{
+	std::vector<double> derivative(spatial.size(), 0);
+	for (size_t i = 0; i < spatial.size(); i++)
+	{
+		derivative[i] = -(spatial[i] - spatial_0[i]) / (std::pow(sigma, 2)) * getValue(spatial, t);
+	}
+	return derivative;
+}
+
+inline double GaussianElement::gaussian_exp_func(double x, double x_0, double sigma)
 {
 	return std::exp(-std::pow((x - x_0), 2) / (2 * std::pow(sigma, 2)));
+}
+
+inline GaussianElement::GaussianElement(const double A_0, const std::vector<double> spatial_0, const double sigma, const double t_0)
+	: A_0{ A_0 }, spatial_0{ spatial_0 }, sigma{ sigma }, t_0{ t_0 }
+{
 }
