@@ -58,7 +58,7 @@ TEST_F(TestGaussianElement, twoDimensionalGaussianReturnsSensibleValues)
 
 TEST_F(TestGaussianElement, twoDimensionalGaussianReturnsZeroDerivativeInCenterRegardlessOfTime)
 {
-	const std::vector<double> derivativeAtCenter000 = gaussian2DAt000.getDerivative({ 0,0}, 0);	
+	const std::vector<double> derivativeAtCenter000 = gaussian2DAt000.getDerivative({ 0,0 }, 0);
 	ASSERT_EQ(derivativeAtCenter000.size(), 2);
 	ASSERT_DOUBLE_EQ(derivativeAtCenter000[0], 0);
 	ASSERT_DOUBLE_EQ(derivativeAtCenter000[1], 0);
