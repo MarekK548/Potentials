@@ -21,7 +21,7 @@ add_executable(Potentials
   src/GaussianElement.cpp
   src/Potential.cpp
   src/ElementPot.cpp
-)
+ "src/Particle.cpp")
 
 # Include GoogleTest
 include(FetchContent)
@@ -41,7 +41,7 @@ add_executable(AllTests
   src/Potential.cpp
   tests/test_Potential.cpp
   src/ElementPot.cpp
-)
+  tests/test_Particle.cpp "src/Particle.cpp")
 target_link_libraries(AllTests GTest::gtest_main)
 
 include(GoogleTest)
