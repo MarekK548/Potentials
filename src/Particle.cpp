@@ -1,5 +1,6 @@
 #include "../src/Particle.h"
 #include <vector>
+#include <cmath>
 
 using std::vector;
 
@@ -16,6 +17,7 @@ void Particle::update(const vector<double> force, const double dt)
 	{
 		acceleration[i] = force[i] / mass;
 	}
+	VerletIntegration(acceleration, dt);
 
 }
 
@@ -24,11 +26,21 @@ vector<double> Particle::getPosition() const
 	return spatial_current;
 }
 
-
-
-void Particle::VerletIntegration(vector<double> acceleration)
+void Particle::VerletIntegration(vector<double>& acceleration, const double dt)
 {
-	if (first_iteration) [[unlikely]]
+	if (first_iteration)
 	{
+		VerletFirstIteration(acceleration, dt);
+		first_iteration = false;
+		return;
+	}
+}
+
+void Particle::VerletFirstIteration(vector<double>& acceleration, const double dt)
+{
+	for (size_t i = 0; i < acceleration.size(); i++)
+	{
+		spatial_current[i] = spatial_current[i] + velocity_current[i] * dt 
+								+ 1.0 / 2 * acceleration[i] * std::pow(dt, 2);
 	}
 }

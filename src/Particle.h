@@ -10,7 +10,8 @@ public:
 	std::vector<double> getPosition() const;
 
 private:
-	void VerletIntegration(std::vector<double> acceleration);
+	void VerletIntegration(std::vector<double> & acceleration, const double dt);
+	void VerletFirstIteration(std::vector<double> & acceleration, const double dt);
 
 private:
 	const double mass;
