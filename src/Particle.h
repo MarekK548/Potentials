@@ -6,11 +6,11 @@ class Particle
 {
 public:
 	Particle(const double mass, const std::vector<double> & spatial, const std::vector<double>& velocity);
-	void update(const std::vector<double> force, const double dt);
-	std::vector<double> getPosition() const;
+	void update(const std::vector<double> & force, const double dt);
+	[[nodiscard]] std::vector<double> getPosition() const;
 
 private:
-	void VerletIntegration(std::vector<double> acceleration);
+	void VerletIntegration(const std::vector<double> & acceleration, double dt);
 
 private:
 	const double mass;

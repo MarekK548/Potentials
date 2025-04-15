@@ -12,7 +12,7 @@ protected:
 TEST_F(ParticleTest, Particle_DoesntMoveWhenNoForce)
 {
 	const std::vector<double> force{ 0, 0 };
-	const double dt = 0.1;
+	constexpr double dt = 0.1;
 	particle.update(force, dt);
 	const auto newPos = particle.getPosition();
 	ASSERT_EQ(newPos.size(), 2);
@@ -23,10 +23,21 @@ TEST_F(ParticleTest, Particle_DoesntMoveWhenNoForce)
 TEST_F(ParticleTest, Particle_ForceMovesParticleInCorrectWay)
 {
 	const std::vector<double> force{ 100, -100 };
-	const double dt = 0.1;
+	constexpr double dt = 0.1;
 	particle.update(force, dt);
 	const auto newPos = particle.getPosition();
 	ASSERT_NEAR(newPos[0],  0.5, 0.001);
 	ASSERT_NEAR(newPos[1], -0.5, 0.001);
+}
 
+TEST_F(ParticleTest, Particle_ForceMovesCorrectlyWhenCcnstantInMultipleSteps)
+{
+	const std::vector<double> force{100, -100};
+	constexpr double dt = 0.1;
+	particle.update(force, dt);
+	particle.update(force, dt);
+	particle.update(force, dt);
+	const auto newPos = particle.getPosition();
+	ASSERT_NEAR(newPos[0],  4.5, 0.001);
+	ASSERT_NEAR(newPos[1], -4.5, 0.001);
 }
