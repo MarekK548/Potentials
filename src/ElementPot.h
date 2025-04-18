@@ -1,11 +1,13 @@
 #pragma once
 #include <vector>
 
-class ElementPot
-{	
+class ElementPot {
 public:
-	ElementPot() {};
-	virtual double getValue(const std::vector<double>& spatial, const double t) const = 0;
-	virtual std::vector<double> getDerivative(const std::vector<double>& spatial, const double t) const = 0;
-};
+    virtual ~ElementPot() = default;
 
+    ElementPot() = default;
+
+    [[nodiscard]] virtual double getValue(const std::vector<double> &spatial, double t) const = 0;
+
+    [[nodiscard]] virtual std::vector<double> getDerivative(const std::vector<double> &spatial, double t) const = 0;
+};

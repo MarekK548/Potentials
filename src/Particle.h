@@ -7,7 +7,7 @@ class Particle
 public:
 	Particle(const double mass, const std::vector<double> & spatial, const std::vector<double>& velocity);
 	void update(const std::vector<double> & force, const double dt);
-	[[nodiscard]] std::vector<double> getPosition() const;
+	[[nodiscard]] inline std::vector<double> getPosition() const;
 
 private:
 	void VerletIntegration(const std::vector<double> & acceleration, double dt);
@@ -21,3 +21,9 @@ private:
 	std::vector<double> velocity_current;
 	bool first_iteration;
 };
+
+
+inline std::vector<double> Particle::getPosition() const
+{
+	return spatial_current;
+}
