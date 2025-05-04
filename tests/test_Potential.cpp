@@ -1,28 +1,14 @@
 #include <gtest/gtest.h>
 #include "../src/Potential.h"
 #include "../src/ElementPot.h"
+#include "../tests/test_DummyPotentialElement.h"
 
-class DummyElement : public ElementPot {
-public:
-    [[nodiscard]] double getValue(const std::vector<double> &spatial, double t) const override;
-
-    [[nodiscard]] std::vector<double> getDerivative(const std::vector<double> &spatial, double t) const override;
-};
-
-
-double DummyElement::getValue(const std::vector<double> &spatial, const double t) const {
-    return 1;
-}
-
-std::vector<double> DummyElement::getDerivative(const std::vector<double> &spatial, const double t) const {
-    return {2, 3};
-}
 
 class PotentialTest : public testing::Test {
 protected:
     Potential potential{};
-    std::shared_ptr<DummyElement> dummyElement = std::make_shared<DummyElement>();
-    std::shared_ptr<DummyElement> dummyElement2 = std::make_shared<DummyElement>();
+    std::shared_ptr<DummyPotentialElement> dummyElement = std::make_shared<DummyPotentialElement>();
+    std::shared_ptr<DummyPotentialElement> dummyElement2 = std::make_shared<DummyPotentialElement>();
 };
 
 TEST_F(PotentialTest, Potential_getValueReturnsValueOfAnElement) {

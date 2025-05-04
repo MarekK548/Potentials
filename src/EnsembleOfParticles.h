@@ -8,12 +8,12 @@
 
 class EnsembleOfParticles {
 public:
-    void addParticle(const Particle& particle);
-    void updateAll();
+    void addParticle(const Particle &particle);
 
+    void updateAll(const Potential &pot, double t, double dt);
 
+    [[nodiscard]] std::vector<std::vector<double> > getCurrentPositions() const;
 
 private:
     std::vector<Particle> particles;
 };
-
